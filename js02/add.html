@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <h3>덧셈 계산기</h3>
+    <label for="first">첫번째 정수:</label>
+    <input type="text" name="" id="first" placeholder="정수 입력">
+    <br />
+    <label for="second">두번째 정수:</label>
+    <input type="text" name="" id="second" placeholder="정수 입력">
+    <br />
+    <label for="ans">합계:</label>
+    <input type="text" name="" id="ans">
+    <br />
+    <input type="button" id="button" value="계산">
+</body>
+
+<script>
+    var btn = document.getElementById('button');
+        btn.addEventListener('click', function(){
+        var txtAns = document.getElementById('ans');
+
+        txtAns.value = parseInt(document.getElementById('first').value) + parseInt(document.getElementById('second').value);
+    });
+</script>
+</html>
