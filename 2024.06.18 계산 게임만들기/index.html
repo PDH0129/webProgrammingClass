@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>숫자 맞추기 게임</h1>
+    <br>
+    <p>이 게임은 컴퓨터가 생성한 숫자를 맞추는 게임입니다. 숫자는 1부터 100사이에 있습니다.</p>
+    <br>
+    <p>숫자:</p> <input type="text" id="txtInputAns"> <input type="button" value="확인" id="btnOK">
+    <br>
+    <p>추측횟수:</p> <input type="text" id="txtTryCount">
+    <br>
+    <p>힌트:</p> <input type="text" id="txtHint" readonly="true">
+
+</body>
+
+<script>
+
+    /* 정수 데이터 부분 */
+    var ans = Math.floor(Math.random() * 100);
+    var tryCount = 0;
+
+   /* 컨트롤 리턴 부분*/
+
+    // 확인
+    var btnOk = document.getElementById('btnOK');
+    
+    // 추측횟수
+    var txtTryCount = document.getElementById('txtTryCount');
+
+    // 힌트
+    var txtHint = document.getElementById('txtHint');
+    
+    // 답
+    var txtAnsCol = document.getElementById('txtInputAns');
+
+    btnOk.addEventListener("click", function(){
+        if(parseInt(txtAnsCol.value) === NaN) {alert("숫자를 입력하세요!"); return;}
+        else
+        {
+            // 시도횟수 + 1
+            tryCount++;
+
+            if(txtAnsCol.value > ans)
+            {
+                txtTryCount.value = tryCount;
+                txtAnsCol.value = "";
+                txtHint.value="입력값이 정답보다 큽니다.";
+                return;
+            }   
+            else
+                if(txtAnsCol.value < ans)
+                {
+                    txtTryCount.value = tryCount;
+                    txtAnsCol.value = "";
+                    txtHint.value="입력값이 정답보다 작읍니다.";
+                    return;
+                }  
+                else 
+                    if(txtAnsCol.value == ans)
+                    {
+                        alert("정답입니다!!!");
+                        window.open("https://stock.adobe.com/kr/images/celebrate-sign/90816966");
+                    }  
+
+           
+        }
+        
+    });
+</script>
+</html>
