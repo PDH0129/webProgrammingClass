@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <style>
+
+
+        .container{
+            display: flex; 
+            flex-wrap: wrap;
+            width: auto;
+            height: 100vh;
+            margin: 5vh auto; 
+            overflow: auto;
+            justify-content: space-around;
+
+        }
+
+        .card{
+            height: 40vh;
+            margin: 4%;
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid rgb(95, 95, 95);
+            border-radius: 25px;
+            width: 10vw;
+        }
+
+
+        .card > img{
+            height: 15vh;
+            width: 100%;
+            cursor: grab;
+        }
+
+        .card > img:hover{
+            transform: scale(2);
+        }
+
+        .card-text{
+            cursor: grab;
+        }
+
+        .card-text:hover{
+            color: rgb(85, 85, 255);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+       
+        <div class="card" style="width: 20vw;">
+            <img src="./imgaes/1714703644245.jpg" class="card-img-top" alt="..." title="클릭하여 자세히 보기">
+            <div class="card-body">
+              <h1 class="card-text">1호선 타고 의정부가는 좌호빈</h1>
+            </div>
+          </div>
+          
+          <div class="card" style="width: 20vw;">
+            <img src="./imgaes/1714703649459.jpg" class="card-img-top" alt="..." title="클릭하여 자세히 보기">
+            <div class="card-body">
+              <h1 class="card-text">눈에 벌레가 들어간 좌호빈</h1>
+            </div>
+          </div>
+          
+          <div class="card" style="width: 20vw;">
+            <img src="./imgaes/1715227534463.jpg" class="card-img-top" alt="..." title="클릭하여 자세히 보기">
+            <div class="card-body">
+              <h1 class="card-text">폰하는데 건드려서 화난 좌호빈</h1>
+            </div>
+          </div>
+          
+          <div class="card" style="width: 20vw;">
+            <img src="./imgaes/1715236626142.jpg" class="card-img-top" alt="..." title="클릭하여 자세히 보기">
+            <div class="card-body">
+              <h1 class="card-text">밥줄 기다리다가 신물난 좌호빈</h1>
+            </div>
+          </div>
+          
+          <div class="card" style="width: 20vw;">
+            <img src="./imgaes/1716441160380.jpg" class="card-img-top" alt="..." title="클릭하여 자세히 보기">
+            <div class="card-body">
+              <h1 class="card-text">거울보고 실소가 나오는 좌호빈</h1>
+            </div>
+          </div>
+          
+          <div class="card" style="width: 20vw;">
+            <img src="./imgaes/1716441541243.jpg" class="card-img-top" alt="..." title="클릭하여 자세히 보기">
+            <div class="card-body">
+              <h1 class="card-text">졸린 호빈좌</h1>
+            </div>
+          </div>
+          
+          <div class="card" style="width: 20vw;">
+            <img src="./imgaes/20240520_130708.jpg" class="card-img-top" alt="..." title="클릭하여 자세히 보기">
+            <div class="card-body">
+              <h1 class="card-text">파워에이드가 안 뜯겨서 웃긴 좌호빈</h1>
+            </div>
+          </div>
+          
+          <div class="card" style="width: 20vw;">
+            <img src="./imgaes/20240520_130729.jpg" class="card-img-top" alt="..." title="클릭하여 자세히 보기">
+            <div class="card-body">
+              <h1 class="card-text">두유 마시는 좌호빈</h1>
+            </div>
+          </div>
+          
+          <div class="card" style="width: 20vw;">
+            <img src="./imgaes/20240520_154113.jpg" class="card-img-top" alt="..." title="클릭하여 자세히 보기">
+            <div class="card-body">
+              <h1 class="card-text">섹시호빈</h1>
+            </div>
+          </div>
+          
+          <div class="card" style="width: 20vw;">
+            <img src="./imgaes/20240520_154133.jpg" class="card-img-top" alt="..." title="클릭하여 자세히 보기">
+            <div class="card-body">
+              <h1 class="card-text">싫은 좌호빈</h1>
+            </div>
+          </div>
+    </div>
+
+
+    <script>
+        var img = $(".card-img-top");
+
+        img.click(function(){
+            var imgSource = $(this).attr('src');
+            window.open(`./${imgSource}`);
+        });
+
+    </script>
+      
+</body>
+</html>
