@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <style>
+        .button {
+            padding: 10px;
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+
+
+<body>
+    숫자 1: <input type=text id="number1" value="9"><br>
+    숫자 2: <input type=text id="number2" value="6"><br>
+    <input type=button value="+" onClick="btnClick('add')" class="button">
+    <input type=button value="-" onClick="btnClick('sub')" class="button">
+    <input type=button value="*" onClick="btnClick('tis')" class="button">
+    <input type=button value="/" onClick="btnClick('mul')" class="button"><br>
+    연산결과: <input type=text id="result" value="">
+</body>
+
+
+<script>
+
+    function btnClick(type){
+
+        let a = parseFloat(document.getElementById('number1').value);
+        let b = parseFloat(document.getElementById('number2').value);
+        const res = document.getElementById('result');
+
+        switch(type){
+            case 'add':   res.value = a + b; break;
+            case 'sub':  res.value = a - b; break;
+            case 'tis': res.value = a * b; break;
+            case 'mul': res.value = a / b; break;
+        }
+    }
+</script>
+</html>
