@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <style>
+        * {
+            text-align: center;
+        }
+
+        #board {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #board tr td {
+            border: 1px solid white;
+            background: #34da79;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #board tr td.clicked {
+            background: #6c5ee7;
+        }
+
+        #board tr td.mine {
+            background: #FF0000;
+            color: white;
+            font-size: 30px;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        /* 버튼 디자인 수정 */
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        /* 버튼 떨리는 효과 */
+        button.shake {
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(0.9); }
+            75% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>지뢰찾기</h1>
+    <table id="board"></table>
+    <button id="restartBtn" onclick="genGrid();">새로운 게임</button>
+    <script>
+        let grid = document.getElementById("board");
+        let restartBtn = document.getElementById("restartBtn");
+        let gameEnded = false; // 게임 종료 여부를 추적하는 변수
+        genGrid();
+
+        var bombSound = new Audio("./audio/Track 78.mp3");
+        bombSound.load();
+        bombSound.volume = 1;
+
+        var alertSound = new Audio("./audio/beep.mp3");
+        alertSound.load();
+        alertSound.volume = 1;
+
+        function genGrid() {
+            grid.innerHTML = "";
+            gameEnded = false; // 게임이 다시 시작되면 게임 종료 상태를 false로 설정
+            restartBtn.classList.remove("shake"); // 재시작 버튼의 떨림 효과 제거
+
+            for (let i = 0; i < 8; i++) {
+                let row = grid.insertRow(i);
+                for (let j = 0; j < 8; j++) {
+                    let cell = row.insertCell(j);
+                    cell.onclick = function () { clickBox(this); };
+                    let mine = document.createAttribute("mine");
+                    if (Math.random() < 0.3) {
+                        mine.value = "true";
+                    } else {
+                        mine.value = "false";
+                    }
+                    cell.setAttributeNode(mine); // 각 셀에 mine 속성을 설정
+                }
+            }
+        }
+
+        function clickBox(cell) {
+            // 게임이 이미 끝났다면, 버튼에 떨림 효과를 적용하고 클릭을 막음
+            if (gameEnded) {
+                restartBtn.classList.add("shake"); // 떨림 애니메이션 적용
+                alertSound.play(); // 경고음 재생
+                setTimeout(() => {
+                    restartBtn.classList.remove("shake"); // 떨림 효과 제거
+                }, 500);
+                return;
+            }
+
+            // 지뢰인 경우 바로 지뢰를 표시하고 게임 종료
+            if (cell.getAttribute("mine") === "true") {
+                cell.className = "mine";
+                cell.innerHTML = "💣"; // 지뢰를 표시
+                bombSound.play(); // 폭발사운드 재생
+                alert("지뢰를 클릭했습니다! 게임이 종료되었습니다.");
+                gameEnded = true; // 게임 종료 상태 설정
+            } else {
+                // 지뢰가 아닌 경우에만 애니메이션 실행
+                startPeelAnimation(cell);
+            }
+        }
+
+        function startPeelAnimation(cell) {
+            const canvas = document.createElement('canvas');
+            canvas.width = cell.offsetWidth;
+            canvas.height = cell.offsetHeight;
+            cell.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+
+            let progress = 0; // 애니메이션 진행 상태를 나타내는 변수
+            const maxAngle = Math.PI / 2; // 90도 회전 (종이장처럼 말리는 효과)
+            const peelingSpeed = 0.03; // 애니메이션 속도
+
+            function drawPeel() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // 캔버스 초기화
+                ctx.save();
+
+                // 종이가 벗겨지는 모양 그리기
+                ctx.translate(0, 0); // 캔버스의 시작점(0, 0)에서 변환을 시작
+                ctx.rotate(progress * maxAngle); // 종이가 점차 말리듯 회전
+
+                // 종이가 말리는 모양을 직사각형으로 그려줌
+                ctx.fillStyle = "#ffffff";
+                ctx.fillRect(0, progress * canvas.height, canvas.width, canvas.height);
+
+                ctx.restore();
+
+                // 애니메이션 진행
+                if (progress < 1) {
+                    progress += peelingSpeed; // 애니메이션 속도 조절
+                    requestAnimationFrame(drawPeel);
+                } else {
+                    canvas.remove(); // 애니메이션 완료 후 캔버스 제거
+                    cell.className = "clicked"; // 셀 벗겨짐 완료 후 셀의 스타일 변경
+                }
+            }
+
+            drawPeel(); // 애니메이션 실행
+        }
+    </script>
+</body>
+
+</html>
